@@ -1,26 +1,24 @@
 https://docs.google.com/presentation/d/13R--TesKM2gdmbTHNXRoIfTLVCnzL2CGjya6D2WPxT4/edit#slide=id.p
 
-1.  Setup:
+1.  Setup: install react-navigation
 
     yarn add react-navigation
 
+2.  Create a folder called `Navigation`. Inside it create a file called `RootStack.js`. Inside it:
+
 ```javascript
 import { createStackNavigator } from "react-navigation";
-
-export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
-}
 
 const RootStack = createStackNavigator({
   Home: HomeScreen,
   List: ListScreen,
   Detail: DetailScreen
 });
+
+export default RootStack;
 ```
 
-2.  Initial Route Name:
+3.  Initial Route Name:
 
 ```javascript
 const RootStack = createStackNavigator(
@@ -33,13 +31,15 @@ const RootStack = createStackNavigator(
     initialRouteName: "Home"
   }
 );
+
+export default RootStack;
 ```
 
-3. App Container:
+4. Create a file called "index.js" for our App Container:
 
 ```javascript
 import {createAppContainer} from "react-navigation";
-
+import RootStack from "./RootStack";
 ...
 
 const AppContainer = createAppContainer(RootStack);
@@ -47,7 +47,7 @@ export default AppContainer;
 
 ```
 
-4.  Go to List Screen:
+5.  Go to List Screen:
 
 ```javascript
 <Button
@@ -58,19 +58,15 @@ export default AppContainer;
 >
 ```
 
-5.  Go to Detail Screen (without parameters first):
+6.  Go to Detail Screen (without parameters first):
 
 ```javascript
-<ListItem
-  onPress={() =>
-    this.props.navigation.navigate("Detail", { flavor: flavorScoop })
-  }
->
+<ListItem onPress={() => this.props.navigation.navigate("Detail")}>
   <Text style={styles.flavorList}>{flavorScoop.flavorName}</Text>
 </ListItem>
 ```
 
-6.  Add parameters for Detail Navigation:
+7.  Add parameters for Detail Navigation:
 
 (List.js)
 
@@ -95,13 +91,13 @@ render() {
   <Image
     source={{
       uri: flavor.image_url
-    }}
+    }}/>
 
     ...
   <Text>FLAVOR: {flavor.flavorName}</Text>
 ```
 
-7.  Back Button
+8.  Back Button
 
 ```javascript
 <Button
@@ -111,7 +107,7 @@ render() {
 />
 ```
 
-8.  navigate vs push
+9.  navigate vs push
 
 ```javascript
 <Button
@@ -127,7 +123,7 @@ render() {
 />
 ```
 
-9.  Home & List Header Titles
+10. Home & List Header Titles
 
 ```javascript
 class HomeScreen extends Component {
@@ -137,7 +133,7 @@ static navigationOptions = {
   ...
 ```
 
-10.  Detail Header Title
+11. Detail Header Title
 
 ```javascript
 static navigationOptions = ({ navigation }) => {
@@ -147,7 +143,7 @@ static navigationOptions = ({ navigation }) => {
 };
 ```
 
-11. Header Styling
+12. Header Styling
 
 ```javascript
 {
@@ -164,19 +160,19 @@ static navigationOptions = ({ navigation }) => {
 }
 ```
 
-12. Customized Header Style for Home Page
+13. Customized Header Style for Home Page
 
 ```javascript
 class HomeScreen extends Component {
 static navigationOptions = {
   title: "Home",
   headerStyle: {
-    backgroundColor: #ffd1dc
+    backgroundColor: "#ffd1dc"
   }
 }
 ```
 
-13. Remove Header from Home Page
+14. Remove Header from Home Page
 
 ```javascript
 class HomeScreen extends Component {
@@ -185,7 +181,7 @@ class HomeScreen extends Component {
   };
 ```
 
-14. Add a button on the right side of the header
+15. Add a button on the right side of the header
 
 ```javascript
 static navigationOptions = {
@@ -196,7 +192,7 @@ static navigationOptions = {
 };
 ```
 
-15. Change title when pressing on the button:
+16. Change title when pressing on the button:
 
 ```javascript
 static navigationOptions = ({ navigation }) => {
@@ -213,7 +209,7 @@ static navigationOptions = ({ navigation }) => {
 </Button>
 ```
 
-16. Add a counter to the header:
+17. Add a counter to the header:
 
 ```javascript
 headerRight: <Button
