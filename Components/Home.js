@@ -5,7 +5,7 @@ import { Button } from "native-base";
 // Styles
 import styles from "../styles";
 
-const HomeScreen = () => {
+const Home = () => {
   return (
     <ImageBackground
       source={{
@@ -31,4 +31,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default Home;

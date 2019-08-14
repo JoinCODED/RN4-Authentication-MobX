@@ -1,9 +1,9 @@
 import React from "react";
 
-import HomeScreen from "./Components/Home";
-import ListScreen from "./Components/List";
-import DetailScreen from "./Components/Detail";
+import Home from "./Components/Home";
+import IcecreamList from "./Components/IcecreamList";
+import IcecreamDetail from "./Components/IcecreamDetail";
 
 export default function App() {
-  return <HomeScreen />;
+  return <Home />;
 }

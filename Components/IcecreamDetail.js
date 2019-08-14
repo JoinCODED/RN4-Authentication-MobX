@@ -5,7 +5,7 @@ import { Body, Card, CardItem, Content, Container } from "native-base";
 // Styles
 import styles from "../styles";
 
-const DetailScreen = () => {
+const IcecreamDetail = () => {
   return (
     <Container>
       <Content>
@@ -29,4 +29,4 @@ const DetailScreen = () => {
   );
 };
 
-export default DetailScreen;
+export default IcecreamDetail;
