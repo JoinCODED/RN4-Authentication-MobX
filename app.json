@@ -1,11 +1,10 @@
 {
   "expo": {
-    "name": "IcecreamGallery",
-    "description": "This project is really great.",
-    "slug": "IcecreamGallery",
+    "name": "Icecream-Gallery",
+    "slug": "Icecream-Gallery",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
-    "platforms": ["ios", "android"],
+    "sdkVersion": "33.0.0",
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
