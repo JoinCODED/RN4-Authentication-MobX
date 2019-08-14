@@ -54,14 +54,14 @@ export default AppContainer;
   transparent
   light
   style={styles.buttonStyling}
-  onPress={() => this.props.navigation.navigate("List")}
+  onPress={() => props.navigation.navigate("List")}
 >
 ```
 
 6.  Go to Detail Screen (without parameters first):
 
 ```javascript
-<ListItem onPress={() => this.props.navigation.navigate("Detail")}>
+<ListItem onPress={() => props.navigation.navigate("Detail")}>
   <Text style={styles.flavorList}>{flavorScoop.flavorName}</Text>
 </ListItem>
 ```
@@ -73,7 +73,7 @@ export default AppContainer;
 ```javascript
 <ListItem
   onPress={() =>
-    this.props.navigation.navigate("Detail", { flavor: flavorScoop })
+    props.navigation.navigate("Detail", { flavor: flavorScoop })
   }
 >
 ```
@@ -82,7 +82,7 @@ export default AppContainer;
 
 ```javascript
 render() {
-  let flavor = this.props.navigation.getParam("flavor", {
+  let flavor = props.navigation.getParam("flavor", {
     flavorName: "Chocolate",
     image_url: "http://www.theold27icecreamshop.com/images/icecream.png"
   });
@@ -103,7 +103,7 @@ render() {
 <Button
   title="BACK"
   color="#6C788E"
-  onPress={() => this.props.navigation.goBack()}
+  onPress={() => props.navigation.goBack()}
 />
 ```
 
@@ -113,13 +113,13 @@ render() {
 <Button
   title="TAKE ME AWAY"
   color="#6C788E"
-  onPress={() => this.props.navigation.navigate("Home")}
+  onPress={() => props.navigation.navigate("Home")}
 />
 
 <Button
   title="TAKE ME AWAY"
   color="#6C788E"
-  onPress={() => this.props.navigation.push("Home")}
+  onPress={() => props.navigation.push("Home")}
 />
 ```
 
@@ -198,6 +198,8 @@ static navigationOptions = {
 static navigationOptions = ({ navigation }) => {
   return {
     title: navigation.getParam("name")
+  }
+}
 
 <Button
   transparent
@@ -225,6 +227,7 @@ headerRight: <Button
 state = {
     count: 0
   };
+
 componentDidMount() {
   this.props.navigation.setParams({ increaseCount: this._increaseCount });
 }
