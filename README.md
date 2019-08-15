@@ -4,88 +4,111 @@ https://docs.google.com/presentation/d/13R--TesKM2gdmbTHNXRoIfTLVCnzL2CGjya6D2WP
 
     yarn add react-navigation
 
-2.  Create a folder called `Navigation`. Inside it create a file called `RootStack.js`. Inside it:
+2.  Create a folder called `Navigation`. Inside it create a file called `StackNav.js`. Inside it:
 
 ```javascript
 import { createStackNavigator } from "react-navigation";
 
-const RootStack = createStackNavigator({
-  Home: HomeScreen,
-  List: ListScreen,
-  Detail: DetailScreen
+import Home from "../Components/Home";
+import IcecreamList from "../Components/IcecreamList";
+import IcecreamDetail from "../Components/IcecreamDetail";
+
+const StackNav = createStackNavigator({
+  HomeScreen: Home,
+  ListScreen: IcecreamList,
+  DetailScreen: IcecreamDetail
 });
 
-export default RootStack;
+export default StackNav;
 ```
 
 3.  Initial Route Name:
 
 ```javascript
-const RootStack = createStackNavigator(
+const StackNav = createStackNavigator(
   {
-    Home: HomeScreen,
-    List: ListScreen,
-    Detail: DetailScreen
+    HomeScreen: Home,
+    ListScreen: IcecreamList,
+    DetailScreen: IcecreamDetail
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "HomeScreen"
   }
 );
 
-export default RootStack;
+export default StackNav;
 ```
 
 4. Create a file called "index.js" for our App Container:
 
 ```javascript
 import {createAppContainer} from "react-navigation";
-import RootStack from "./RootStack";
+import StackNav from "./StackNav";
 ...
 
-const AppContainer = createAppContainer(RootStack);
+const AppContainer = createAppContainer(StackNav);
 export default AppContainer;
 
 ```
 
-5.  Go to List Screen:
+5. Go to `App.js` and render the `AppContainer`:
 
-```javascript
+```jsx
+import AppContainer from "./Navigation";
+
+export default function App() {
+  return <AppContainer />;
+}
+```
+
+6.  Go to List Screen:
+
+```jsx
 <Button
   transparent
   light
   style={styles.buttonStyling}
-  onPress={() => props.navigation.navigate("List")}
+  onPress={() => props.navigation.navigate("ListScreen")}
 >
 ```
 
-6.  Go to Detail Screen (without parameters first):
+7.  Go to `IcecreamItem.js` (without parameters first):
 
-```javascript
-<ListItem onPress={() => props.navigation.navigate("Detail")}>
-  <Text style={styles.flavorList}>{flavorScoop.flavorName}</Text>
+```jsx
+<ListItem onPress={() => props.navigation.navigate("DetailScreen")}>
+  <Text style={styles.flavorList}>{flavorScoop.name}</Text>
 </ListItem>
 ```
 
-7.  Add parameters for Detail Navigation:
+8. Explain why navigation won't work in `IcecreamItem.js`. Pass `navigation` as props.
 
-(List.js)
+```jsx
+const icecreamFlavors = flavors.map(flavor => (
+  <IcecreamItem key={flavor.id} flavor={flavor} navigation={navigation} />
+));
+```
 
-```javascript
+9.  Add parameters for Detail Navigation:
+
+(IcecreamItem.js)
+
+```jsx
 <ListItem
   onPress={() =>
-    props.navigation.navigate("Detail", { flavor: flavorScoop })
+    props.navigation.navigate("DetailScreen", {
+          flavorID: flavor.id
+        })
   }
 >
 ```
 
-(Detail.js)
+(IcecreamDetail.js)
 
-```javascript
-render() {
-  let flavor = props.navigation.getParam("flavor", {
-    flavorName: "Chocolate",
-    image_url: "http://www.theold27icecreamshop.com/images/icecream.png"
-  });
+```jsx
+ {
+   const flavorID = props.navigation.getParam("flavorID");
+   const flavor = flavors.find(flavor => flavor.id === flavorID);
+
   ...
 
   <Image
@@ -94,12 +117,12 @@ render() {
     }}/>
 
     ...
-  <Text>FLAVOR: {flavor.flavorName}</Text>
+  <Text>FLAVOR: {flavor.name}</Text>
 ```
 
-8.  Back Button
+10. Back Button
 
-```javascript
+```jsx
 <Button
   title="BACK"
   color="#6C788E"
@@ -107,120 +130,137 @@ render() {
 />
 ```
 
-9.  navigate vs push
+11. navigate vs push
 
-```javascript
+```jsx
 <Button
   title="TAKE ME AWAY"
   color="#6C788E"
-  onPress={() => props.navigation.navigate("Home")}
+  onPress={() => props.navigation.navigate("HomeScreen")}
 />
 
 <Button
   title="TAKE ME AWAY"
   color="#6C788E"
-  onPress={() => props.navigation.push("Home")}
+  onPress={() => props.navigation.push("HomeScreen")}
 />
 ```
 
-10. Home & List Header Titles
+12. Home & List Header Titles
 
-```javascript
-class HomeScreen extends Component {
-static navigationOptions = {
+```jsx
+Home.navigationOptions = {
   title: "Home"
 }
   ...
+
+IcecreamList.navigationOptions = {
+  title: "Flavors",
+};
 ```
 
-11. Detail Header Title
+13. Detail Header Title
 
-```javascript
-static navigationOptions = ({ navigation }) => {
+```jsx
+IcecreamDetail.navigationOptions = ({ navigation }) => {
+  const flavorID = navigation.getParam("flavorID");
   return {
-    title: navigation.getParam("flavor").flavorName
+    title: flavors.find(flavor => flavor.id === flavorID).name
   };
 };
 ```
 
-12. Header Styling
+14. Header Styling
 
 ```javascript
 {
-  initialRouteName: "Home",
+  initialRouteName: "HomeScreen",
   defaultNavigationOptions: {
     headerTintColor: "white",
     headerStyle: {
       backgroundColor: "#90d4ed"
     },
-    headerTextStyle: {
+    headerTitleStyle: {
       fontWeight: "bold"
     }
   }
 }
 ```
 
-13. Customized Header Style for Home Page
+15. Customized Header Style for Home Page
 
 ```javascript
-class HomeScreen extends Component {
-static navigationOptions = {
-  title: "Home",
+Home.navigationOptions = {
+  title: "Home Screen",
   headerStyle: {
     backgroundColor: "#ffd1dc"
   }
-}
-```
-
-14. Remove Header from Home Page
-
-```javascript
-class HomeScreen extends Component {
-  static navigationOptions = {
-    header: null
-  };
-```
-
-15. Add a button on the right side of the header
-
-```javascript
-static navigationOptions = {
-  title: "LIST",
-  headerRight: (
-    <Button title="Press Me" color="white" onPress={() => alert("HELLO!")} />
-  )
 };
 ```
 
-16. Change title when pressing on the button:
+16. Remove Header from Home Page
 
 ```javascript
-static navigationOptions = ({ navigation }) => {
+Home.navigationOptions = {
+  header: null
+};
+```
+
+17. Create a button component
+
+```jsx
+const PressMe = () => (
+  <Button title="Press Me" color="white" onPress={() => alert("HELLO!")} />
+);
+```
+
+18. Add a button on the right side of the header
+
+```jsx
+IcecreamList.navigationOptions = {
+  title: "Flavors List",
+  headerRight: <PressMe />
+};
+```
+
+19. In `Home.js`, change title when pressing on the button:
+
+```jsx
+Home.navigationOptions = ({ navigation }) => {
   return {
     title: navigation.getParam("name")
-  }
-}
+  };
+};
 
 <Button
   transparent
   light
   style={styles.buttonStyling}
-  onPress={() => this.props.navigation.setParams({ name: "Lailz" })}
+  onPress={() => props.navigation.setParams({ name: "Lailz" })}
 >
   <Text style={styles.buttonTextStyling}>Set title name to 'Lailz'</Text>
-</Button>
+</Button>;
 ```
 
-17. Add a counter to the header:
+20. Add a counter to the header:
 
-```javascript
-headerRight: <Button
+```jsx
+
+const IncreaseCount = () => (
+<Button
   transparent
   light
   onPress={navigation.getParam("increaseCount")}
 >
   <Text style={styles.buttonTextStyling}>ICECREAM!!</Text>
-</Button>;
+</Button>
+)
+
+------------
+
+Home.navigationOptions = {
+  headerRight: <IncreaseCount />
+}
 
 -------------
 
