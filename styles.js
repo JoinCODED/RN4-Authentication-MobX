@@ -60,6 +60,57 @@ const styles = StyleSheet.create({
     color: "white",
     fontStyle: "italic",
     fontFamily: "Baskerville"
+  },
+  authButton: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#90d4ed",
+    marginTop: 30
+  },
+  authButtonText: {
+    color: "#FCFDFF",
+    fontWeight: "bold",
+    fontSize: 18
+  },
+  authContainer: {
+    flex: 1,
+    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FCFDFF",
+    paddingRight: 60,
+    paddingLeft: 60
+  },
+  authOther: {
+    color: "#90d4ed",
+    marginTop: 15
+  },
+  authTextInput: {
+    alignSelf: "stretch",
+    textAlign: "left",
+    height: 40,
+    marginBottom: 30,
+    color: "#90d4ed",
+    borderBottomColor: "#90d4ed",
+    borderBottomWidth: 1
+  },
+  authTitle: {
+    color: "#90d4ed",
+    fontSize: 24,
+    marginBottom: 20,
+    borderBottomColor: "#90d4ed"
+  },
+  profileImage: {
+    height: 75,
+    width: 150,
+    flex: 0.5,
+    marginBottom: 10
+  },
+  profiletext: {
+    textAlign: "left",
+    color: "#90d4ed",
+    fontSize: 16
   }
 });
 
