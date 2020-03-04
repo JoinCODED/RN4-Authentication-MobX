@@ -18,7 +18,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log("HELLO");
     return (
       <View style={styles.authContainer}>
         <Text style={styles.authTitle}>Login</Text>
