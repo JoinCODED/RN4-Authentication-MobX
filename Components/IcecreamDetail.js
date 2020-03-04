@@ -5,7 +5,12 @@ import { Body, Card, CardItem, Content, Container } from "native-base";
 // Styles
 import styles from "../styles";
 
-const IcecreamDetail = () => {
+// Data
+import flavors from "../data";
+
+const IcecreamDetail = ({ navigation }) => {
+  const flavorID = navigation.getParam("flavorID");
+  const flavor = flavors.find(_flavor => _flavor.id === flavorID);
   return (
     <Container>
       <Content>
@@ -13,20 +18,21 @@ const IcecreamDetail = () => {
           <Card>
             <CardItem>
               <Body>
-                <Image style={styles.icecreamImage} />
-                <Text>FLAVOR: </Text>
+                <Image
+                  style={styles.icecreamImage}
+                  source={{ uri: flavor.image_url }}
+                />
               </Body>
             </CardItem>
           </Card>
-          <Button
-            title="BACK"
-            color="#6C788E"
-            onPress={() => alert("Come Baaack!")}
-          />
         </View>
       </Content>
     </Container>
   );
 };
+
+IcecreamDetail.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam("flavorName")
+});
 
 export default IcecreamDetail;

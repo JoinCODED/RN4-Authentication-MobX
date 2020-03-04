@@ -1,9 +1,7 @@
 import React from "react";
 
-import Home from "./Components/Home";
-import IcecreamList from "./Components/IcecreamList";
-import IcecreamDetail from "./Components/IcecreamDetail";
+import AppContainer from "./Navigators";
 
 export default function App() {
-  return <Home />;
+  return <AppContainer />;
 }
