@@ -15,6 +15,7 @@ class Login extends Component {
 
   handlePress = () => {
     console.log("SIGN IN ", this.state);
+    this.props.navigation.navigate("HomeScreen");
   };
 
   render() {
@@ -25,12 +26,14 @@ class Login extends Component {
           style={styles.authTextInput}
           placeholder="Username"
           placeholderTextColor="#A6AEC1"
+          onChangeText={value => this.setState({ username: value })}
         />
         <TextInput
           style={styles.authTextInput}
           placeholder="Password"
           placeholderTextColor="#A6AEC1"
           secureTextEntry={true}
+          onChangeText={value => this.setState({ password: value })}
         />
         <TouchableOpacity style={styles.authButton} onPress={this.handlePress}>
           <Text style={styles.authButtonText}>Log in</Text>

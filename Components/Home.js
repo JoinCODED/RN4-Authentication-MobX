@@ -5,7 +5,7 @@ import { Button } from "native-base";
 // Styles
 import styles from "../styles";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <ImageBackground
       source={{
@@ -21,7 +21,7 @@ const Home = () => {
             transparent
             light
             style={styles.buttonStyling}
-            onPress={() => alert("IceCream List")}
+            onPress={() => navigation.navigate("ListScreen")}
           >
             <Text style={styles.buttonTextStyling}>FLAVORS LIST</Text>
           </Button>
